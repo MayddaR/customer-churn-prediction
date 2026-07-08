@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - <%= nombre %></title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .contenedor {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #2c3e50;
+        }
+        h1 { color: #2c3e50; margin-bottom: 5px; font-size: 24px; text-transform: uppercase; }
+        h2 { color: #2980b9; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 30px; font-size: 18px; text-transform: uppercase; }
+        h3 { margin-bottom: 2px; font-size: 16px; color: #000; }
+        
+        .header-info { margin-bottom: 20px; }
+        .contacto { font-size: 14px; color: #555; }
+        .separador { display: inline-block; margin: 0 10px; }
+        
+        .tag-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .tag { background: #ecf0f1; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #2c3e50; }
+        
+        .job-item { margin-bottom: 20px; }
+        .job-meta { font-style: italic; color: #666; font-size: 14px; }
+        ul { margin-top: 5px; padding-left: 20px; }
+        li { margin-bottom: 5px; font-size: 14px; }
+
+        .education-item { margin-bottom: 10px; }
+        .bold { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <!-- ENCABEZADO -->
+    <div class="header">
+        <h1><%= nombre %></h1>
+        <h3><%= titulo %></h3>
+        <div class="contacto">
+            <%= ubicacion %> <span class="separador">|</span> 
+            Tel: <%= telefono %> <span class="separador">|</span> 
+            <%= email %>
+            <br>
+            LinkedIn: <%= linkedin %>
+        </div>
+    </div>
+
+    <!-- PERFIL -->
+    <h2>Perfil y Enfoque</h2>
+    <p><%= perfil %></p>
+
+    <!-- VENTAJAS COMPETITIVAS -->
+    <h2>Ventajas Competitivas</h2>
+    <div class="tag-container">
+        <%= ventajas.map(t => `<span class="tag">${t}</span>`).join('') %>
+    </div>
+
+    <!-- EXPERIENCIA -->
+    <h2>Experiencia Profesional</h2>
+    <% experiencia.forEach(function(job) { %>
+        <div class="job-item">
+            <h3><%= job.cargo %></h3>
+            <div class="job-meta">
+                <%= job.empresa %> <span class="separador">|</span> <%= job.ubicacion %> <span class="separador">|</span> <%= job.fecha %>
+            </div>
+            <ul>
+                <% job.responsabilidades.forEach(function(resp) { %>
+                    <li><%= resp %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% }); %>
+
+    <!-- EDUCACIÓN -->
+    <h2>Educación</h2>
+    <% education.forEach(function(edu) { %>
+        <div class="education-item">
+            <span class="bold"><%= edu.titulo %></span> - <%= edu.institucion %> 
+            <% if(edu.detalle) { %> (<%= edu.detalle %>) <% } %> - <%= edu.fecha %>
+        </div>
+    <% }); %>
+
+    <!-- CERTIFICACIONES -->
+    <h2>Certificaciones</h2>
+    <ul>
+        <% certificaciones.forEach(function(cert) { %>
+            <li><%= cert %></li>
+        <% }); %>
+    </ul>
+
+</div>
+
+</body>
+</html>
